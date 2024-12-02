@@ -7,8 +7,8 @@ void add_song(const string& song, const string& title) {
     cout << "Song: " << song << ", Title: " << title << endl;
 }
 
-void append(Node*& head, string title, string artist) {
-    Node* newNode = new Node{title,artist, nullptr}; // Membuat node baru
+void append(Node*& head, string title, string artist, string album, string duration) {
+    Node* newNode = new Node{title,artist, album, duration, nullptr}; // Membuat node baru
     if (head == nullptr) {
         head = newNode; // Jika linked list kosong, node baru menjadi head
         return;
@@ -22,7 +22,7 @@ void append(Node*& head, string title, string artist) {
 void printList(Node* head) {
     Node* temp = head;
     while (temp != nullptr) {
-        cout << "Title: " << temp->title << " Artist: " << temp->artist << endl;
+        cout << "Title: " << temp->title << " Artist: " << temp->artist << " Album: " << temp->album << " Duration: " << temp->duration << endl;
         temp = temp->next;
     }
 }

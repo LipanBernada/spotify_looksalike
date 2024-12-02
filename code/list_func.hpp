@@ -8,10 +8,12 @@ using std::string;
 struct Node{
     string title;
     string artist;
+    string album;
+    string duration;
     struct Node *next;
 };
 
-void append(Node*& head, string title, string artist);
+void append(Node*& head, string title, string artist, string album, string duration);
 void add_song(const string& song, const string& title);
 bool dupliCheck(Node* head, const string& title, const string&  artist);
 void printList(Node* head);

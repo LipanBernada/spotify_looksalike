@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
     Node* head = nullptr;
-    string title, artist;
+    string title, artist, album, duration;
     int choice;
 
     do{
@@ -33,9 +33,13 @@ int main() {
         getline(cin, title);
         cout << "Masukkan Nama Artis: ";
         getline(cin,artist);
+        cout << "Masukkan Album: ";
+        getline(cin, album);
+        cout << "Masukkan Durasi Lagu: ";
+        getline(cin, duration);
         
         if(!dupliCheck(head, title, artist)){
-        append(head, title, artist);
+        append(head, title, artist, album, duration);
         save(head);
         }
         else{

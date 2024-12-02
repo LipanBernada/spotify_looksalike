@@ -12,7 +12,7 @@ void save(Node* head) {
     }
     Node* temp = head;
     while (temp != nullptr) {
-        file << temp->title << "," << temp->artist << "\n";
+        file << temp->title << "," << temp->artist << "," << temp->album << "," << temp->duration << "\n";
         temp = temp->next;
     }
     file.close();
@@ -28,14 +28,21 @@ void load(Node*& head) { // Gunakan Node*&
         return;
     }
 
-    string line, title, artist;
-    while (getline(file, line)) {
-        size_t delimiterPos = line.find(','); // Pisahkan berdasarkan koma
-        if (delimiterPos != string::npos) {
-            title = line.substr(0, delimiterPos);
-            artist = line.substr(delimiterPos + 1);
-            append(head, title, artist); // Tambahkan elemen baru
-        }
+    string line, title, artist, album, duration;
+while (getline(file, line)) {
+    size_t pos1 = line.find(','); // Posisi koma pertama
+    size_t pos2 = line.find(',', pos1 + 1); // Posisi koma kedua
+    size_t pos3 = line.find(',', pos2 + 1); // Posisi koma ketiga
+
+    if (pos1 != string::npos && pos2 != string::npos && pos3 != string::npos) {
+        title = line.substr(0, pos1);
+        artist = line.substr(pos1 + 1, pos2 - pos1 - 1);
+        album = line.substr(pos2 + 1, pos3 - pos2 - 1);
+        duration = line.substr(pos3 + 1);
+
+        append(head, title, artist, album, duration); // Tambahkan elemen baru
+    } else {
+        cerr << "Invalid line format: " << line << endl;
     }
-    file.close();
+}
 }
