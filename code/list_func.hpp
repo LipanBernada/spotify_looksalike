@@ -21,4 +21,6 @@ void printList(Node* head);
 void save(Node* head);
 void load(Node*& head);
 void clear(Node*& head);
+
+void sortList(Node*& head, int kriteria);
 #endif
