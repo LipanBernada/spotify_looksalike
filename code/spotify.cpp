@@ -46,7 +46,7 @@ int main() {
         else{
             cout << "Lagu Sudah Ada dalam Daftar ^_~\n";
         }
-    }else if(choice == 3){
+    } else if (choice == 3) {
         cout << "Pilih metode pengurutan:\n";
         cout << "1. Berdasarkan Judul\n";
         cout << "2. Berdasarkan Artis\n";
