@@ -4,9 +4,9 @@
 
 int durasiLagu(const string& durasi) {
     int minutes = 0, seconds = 0;
-    char delimiter;
+    char tandaBagi;
     stringstream ss(durasi);
-    ss >> minutes >> delimiter >> seconds;
+    ss >> minutes >> tandaBagi >> seconds;
     return minutes * 60 + seconds;
 }
 
