@@ -6,16 +6,17 @@ using namespace std;
 int main() {
     Node* head = nullptr;
     string title, artist, album, duration;
-    int choice;
+    int choice, sortChoice;
 
     do{
     cout << "======= Spotipi =======";
     cout << "\n1. Show Songs List\n";
     cout << "2. Add Song\n";
-    cout << "3. Show Playlists\n";
-    cout << "4. Add Playlist\n";
-    cout << "5. Exit\n";
-    cout << "Masukkan Pilihan (1/2/3/4/5): ";
+    cout << "3. Sort Songs\n";
+    cout << "4. Show Playlists\n";
+    cout << "5. Add Playlist\n";
+    cout << "6. Exit\n";
+    cout << "Masukkan Pilihan (1/2/3/4/5/6): ";
     cin >> choice;
 
     if (choice == 1){
@@ -45,8 +46,23 @@ int main() {
         else{
             cout << "Lagu Sudah Ada dalam Daftar ^_~\n";
         }
+    }else if(choice == 3){
+        cout << "Pilih metode pengurutan:\n";
+        cout << "1. Berdasarkan Judul\n";
+        cout << "2. Berdasarkan Artis\n";
+        cout << "3. Berdasarkan Album\n";
+        cout << "4. Berdasarkan Durasi\n";
+        cout << "Masukkan Pilihan (1/2/3/4): ";
+        cin >> sortChoice;
+        
+        if (sortChoice >= 1 && sortChoice <= 4) {
+                sortList(head, sortChoice);
+                cout << "List Lagu Telah diurutkan.\n";
+            } else {
+                cout << "Pilihan tidak valid.\n";
+            }
     }
-    }while(choice != 5);
+    }while(choice != 6);
     
     printList(head);
     printList(head);
