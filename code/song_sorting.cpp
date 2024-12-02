@@ -1,3 +1,7 @@
+#include <iostream>
+#include <fstream>
+#include "list_func.hpp"
+
 int durasiLagu(const string& durasi) {
     int minutes = 0, seconds = 0;
     char delimiter;
