@@ -1,7 +1,5 @@
-#include <iostream>
-#include <fstream>
 #include "list_func.hpp"
-
+using namespace std;
 int durasiLagu(const string& durasi) {
     int minutes = 0, seconds = 0;
     char tandaBagi;
@@ -27,9 +25,9 @@ void sortList(Node*& head, int kriteria) {
             else if (kriteria == 2) kondisi = lagu->artist > next->artist;
             else if (kriteria == 3) kondisi = lagu->album > next->album;
             else if (kriteria == 4) {
-                int durasiLagu = durasiLagu(current->durasi);
-                int durasiNext = durasiLagu(next->durasi);
-                kondisi = durasiLagu > durasiNext;
+                int durasi123 = durasiLagu(lagu->duration);
+                int durasiNext = durasiLagu(next->duration);
+                kondisi = durasi123 > durasiNext;
             }
 
             if (kondisi) {

@@ -44,3 +44,12 @@ bool dupliCheck(Node* head, const string& title, const string& artist) {
     }
     return false; // Tidak ada duplikasi
 }
+bool dupliyCheck(string title, vector <Playlist> &ply) {
+
+    for (int i = 0; i < ply.size(); i++) {
+        if (title == ply[i].title) {
+            return true;
+        }
+    }
+    return false; // Tidak ada duplikat
+}

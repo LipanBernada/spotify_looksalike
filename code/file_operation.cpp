@@ -45,4 +45,32 @@ while (getline(file, line)) {
         cerr << "Invalid line format: " << line << endl;
     }
 }
+    file.close();
+}
+void print_ply(const vector<Playlist>& ply){
+        ofstream file("../file/ply_list.txt", ios::trunc);
+         if (!file) {
+        cerr << "Error: Tidak dapat membuka file untuk ditulis.\n";
+        return;
+    }
+        for (size_t i = 0; i < ply.size(); i++) {
+        file << ply[i].title<< endl;
+        }
+        file.close();
+    }  
+    
+ void loadPly(vector<Playlist>& ply) {
+    ply.clear(); // Menghapus isi vector sebelum memuat data
+    ifstream file("../file/ply_list.txt");
+    if (!file) {
+        cerr << "Error: Tidak dapat membuka file untuk dibaca.\n";
+        return;
+    }
+    string line;
+    while (getline(file, line)) {
+        Playlist newPly;
+        newPly.title = line; // Membaca title dari file
+        ply.push_back(newPly); // Menambahkan ke vector
+    }
+    file.close();
 }
