@@ -5,7 +5,7 @@
 using namespace std;
 
 void save(Node* head) {
-    ofstream file("../file/song_list.txt", ios::trunc);
+    ofstream file("file/song_list.txt", ios::trunc);
     if (!file) {
         cerr << "Error: Tidak dapat membuka file untuk ditulis.\n";
         return;
@@ -22,7 +22,7 @@ void save(Node* head) {
 void load(Node*& head) { // Gunakan Node*&
     clear(head); // Kosongkan linked list terlebih dahulu
 
-    ifstream file("../file/song_list.txt");
+    ifstream file("file/song_list.txt");
     if (!file) {
         cerr << "Error: Tidak dapat membuka file.\n";
         return;
@@ -48,7 +48,7 @@ while (getline(file, line)) {
     file.close();
 }
 void print_ply(const vector<Playlist>& ply){
-        ofstream file("../file/ply_list.txt", ios::trunc);
+        ofstream file("file/ply_list.txt", ios::trunc);
          if (!file) {
         cerr << "Error: Tidak dapat membuka file untuk ditulis.\n";
         return;
@@ -61,7 +61,7 @@ void print_ply(const vector<Playlist>& ply){
     
  void loadPly(vector<Playlist>& ply) {
     ply.clear(); // Menghapus isi vector sebelum memuat data
-    ifstream file("../file/ply_list.txt");
+    ifstream file("file/ply_list.txt");
     if (!file) {
         cerr << "Error: Tidak dapat membuka file untuk dibaca.\n";
         return;

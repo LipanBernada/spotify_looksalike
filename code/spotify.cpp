@@ -16,7 +16,7 @@ int main()
         cout << "4. Add song to playlist\n";
         cout << "5. Create PLaylist\n";
         cout << "6. Exit\n";
-        cout << "Masukkan Pilihan (1/2/3/4/5/6/6): ";
+        cout << "Masukkan Pilihan (1/2/3/4/5/6): ";
         cin >> choice;
 
         if (choice == 1)
