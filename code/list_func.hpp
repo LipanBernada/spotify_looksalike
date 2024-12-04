@@ -35,14 +35,24 @@ void print_ply(const vector<Playlist>& ply);
 void save(Node* head);
 void load(Node*& head);
 void clear(Node*& head);
+void plyToFile(const Playlist& playlist);
+
+
 
 void loadPly(vector<Playlist>& ply);
 
-void addSongToPlaylist(Playlist& ply, const Node& song);
+void addSongToPlaylist(vector <Playlist>& ply, const Node* song, int index);
 Node* chooseSong(Node* head, int index);
-void printPlaylist(const Playlist& playlist);
+void printPlaylist(const vector<Playlist>& ply, int index); 
+int findIndex(const vector<Playlist>& ply, string title);
+bool duplicateCheck(Node* selected, vector<Playlist>& ply, int index);
+
+
 
 void sortList(Node*& head, int kriteria);
+void deleteSong(Node*& head, Node* toDelete);
+vector<Node*> cariLagu(Node* head, const string& kataKunci);
+
 
 
 #endif

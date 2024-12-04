@@ -53,3 +53,11 @@ bool dupliyCheck(string title, vector <Playlist> &ply) {
     }
     return false; // Tidak ada duplikat
 }
+    bool duplicateCheck(Node* selected, vector<Playlist>& ply, int index){
+        for(int i = 0; i < ply[index].songs.size();i++){
+            if (selected->title == ply[index].songs[i].title){
+                return true;
+            }
+        }
+        return false;
+    }
