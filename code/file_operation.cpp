@@ -63,33 +63,49 @@ while (getline(file, line)) {
 }
     file.close();
 }
-void print_ply(const vector<Playlist>& ply){
-        ofstream file("file/ply_list.txt", ios::trunc);
-         if (!file) {
+void print_ply(Playlist* head) {
+                                cout << "Masuk";
+
+    ofstream file("file/ply_list.txt", ios::trunc);
+    if (!file) {
         cerr << "Error: Tidak dapat membuka file untuk ditulis.\n";
         return;
     }
-        for (size_t i = 0; i < ply.size(); i++) {
-        file << ply[i].title<< endl;
-        }
-        file.close();
-        string filename;
-        for(size_t i = 0; i < ply.size(); i++){
-            filename = "./file/PlayLists/" + ply[i].title + ".txt";
-            if(isFileEmpty(filename)){
-                ofstream file (filename);
-                // file << ply[i].title << endl;
-                file.close();
-            }
+
+    Playlist* temp = head;
+    while (temp != nullptr) {
+        file << temp->title << endl;
+
+        // Periksa apakah file playlist kosong, jika ya, buat file kosong
+        string filename = "./file/PlayLists/" + temp->title + ".txt";
+        if (isFileEmpty(filename)) {
+            ofstream playlistFile(filename);
+            playlistFile.close();
         }
 
-        
+        temp = temp->next;
+    }
 
+    file.close();
+}
+ 
 
-    }  
+    void clearAllPlaylists(Playlist*& head) {
+    while (head != nullptr) {
+        Playlist* temp = head;
+        head = head->next;
+
+        // Bersihkan semua lagu dalam playlist
+        clear(temp->songs);
+        delete temp;
+    }
+}
+
     
-void loadPly(vector<Playlist>& ply) {
-    ply.clear(); // Menghapus isi vector sebelum memuat data
+void loadPly(Playlist*& head) {
+    // Hapus semua playlist sebelumnya
+    clearAllPlaylists(head);
+
     ifstream file("./file/ply_list.txt");
     if (!file) {
         cerr << "Error: Tidak dapat membuka file untuk dibaca.\n";
@@ -98,37 +114,62 @@ void loadPly(vector<Playlist>& ply) {
 
     string line;
     while (getline(file, line)) {
-        Playlist newPly;
-        newPly.title = line; // Nama playlist
+        // Buat playlist baru
+        Playlist* newPlaylist = new Playlist;
+        newPlaylist->title = line; // Nama playlist
+        newPlaylist->songs = nullptr; // Inisialisasi linked list lagu
+        newPlaylist->next = nullptr;
 
         string filename = "./file/PlayLists/" + line + ".txt";
         ifstream playlistFile(filename);
         if (!playlistFile) {
             cerr << "Error: Tidak dapat membuka file playlist " << filename << ".\n";
+            delete newPlaylist; // Hapus playlist jika tidak bisa memuat file
             continue;
         }
 
         string lines;
         while (getline(playlistFile, lines)) {
-            size_t pos1 = lines.find(','); // Posisi koma pertama
+            size_t pos1 = lines.find(',');        // Posisi koma pertama
             size_t pos2 = lines.find(',', pos1 + 1); // Posisi koma kedua
             size_t pos3 = lines.find(',', pos2 + 1); // Posisi koma ketiga
 
-            if ( pos1 != string::npos && pos2 != string::npos && pos3 != string::npos) {
-                Node newNode;
-                newNode.title = lines.substr(0, pos1);
-                newNode.artist = lines.substr(pos1 + 1, pos2 - pos1 - 1);
-                newNode.album = lines.substr(pos2 + 1, pos3 - pos2 - 1);
-                newNode.duration = lines.substr(pos3 + 1);
-                newNode.next = nullptr; // Tidak digunakan dalam konteks vector
+            if (pos1 != string::npos && pos2 != string::npos && pos3 != string::npos) {
+                // Buat node lagu baru
+                Node* newNode = new Node;
+                newNode->title = lines.substr(0, pos1);
+                newNode->artist = lines.substr(pos1 + 1, pos2 - pos1 - 1);
+                newNode->album = lines.substr(pos2 + 1, pos3 - pos2 - 1);
+                newNode->duration = lines.substr(pos3 + 1);
+                newNode->next = nullptr;
 
-                newPly.songs.push_back(newNode); // Tambahkan lagu ke vector songs
+                // Tambahkan node lagu ke linked list lagu dalam playlist
+                if (newPlaylist->songs == nullptr) {
+                    newPlaylist->songs = newNode;
+                } else {
+                    Node* temp = newPlaylist->songs;
+                    while (temp->next != nullptr) {
+                        temp = temp->next;
+                    }
+                    temp->next = newNode;
+                }
             } else {
                 cerr << "Invalid line format in " << filename << ": " << lines << endl;
             }
         }
 
-        ply.push_back(newPly); // Tambahkan playlist ke vector
+        playlistFile.close();
+
+        // Tambahkan playlist ke linked list playlist
+        if (head == nullptr) {
+            head = newPlaylist;
+        } else {
+            Playlist* temp = head;
+            while (temp->next != nullptr) {
+                temp = temp->next;
+            }
+            temp->next = newPlaylist;
+        }
     }
 
     file.close();
