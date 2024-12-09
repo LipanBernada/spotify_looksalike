@@ -32,3 +32,38 @@ void deleteSong(Node*& head, Node* toDelete) {
         delete toDelete;
     }
 }
+
+void deleteSongFromPlaylist(Playlist* playlist, Node* songToDelete) {
+    if (playlist == nullptr) {
+        cout << "Playlist tidak valid." << endl;
+        return;
+    }
+
+    // Cari node lagu di linked list berdasarkan pointer
+    Node* currentSong = playlist->songs;
+    Node* prevSong = nullptr;
+
+    while (currentSong != nullptr && currentSong->title != songToDelete->title) {
+        prevSong = currentSong;
+        currentSong = currentSong->next;
+    }
+
+    // Jika node lagu tidak ditemukan
+    if (currentSong == nullptr) {
+        cout << "Lagu tidak ditemukan di playlist " << playlist->title << "." << endl;
+        return;
+    }
+
+    // Hapus node lagu
+    if (prevSong == nullptr) {
+        // Jika lagu adalah head
+        playlist->songs = currentSong->next;
+    } else {
+        // Jika lagu bukan head
+        prevSong->next = currentSong->next;
+    }
+
+    // Bebaskan memori
+    delete currentSong;
+    cout << "Lagu berhasil dihapus dari playlist " << playlist->title << "." << endl;
+}

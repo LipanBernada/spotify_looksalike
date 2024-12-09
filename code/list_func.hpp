@@ -50,6 +50,7 @@ bool duplicateCheck(const Node* selected, const Playlist* playlist);
 
 void sortList(Node*& head, int kriteria);
 void deleteSong(Node*& head, Node* toDelete);
+void deleteSongFromPlaylist(Playlist* playlist, Node* songToDelete);
 vector<Node*> cariLagu(Node* head, const string& kataKunci);
 
 

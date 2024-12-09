@@ -9,9 +9,11 @@ void printt(Node *head){
     }
 }
 void printts(Playlist *head){
+    int c = 1;
     Playlist* temp = head;
     while(temp != nullptr){
-        cout << temp->title << endl;
+        cout << c << ". " << temp->title << endl;
+        c++;
         temp = temp->next;
     }
 }
@@ -25,6 +27,7 @@ int main()
     do
     {
         loadPly(playlistHead); // Muat playlist dari file
+        load(head);
         cout << "======= Spotipi =======";
         cout << "\n1. Show Songs List\n";
         cout << "2. Add Song\n";
@@ -77,7 +80,7 @@ int main()
             cin.ignore();
             string kataKunci;
             getline(cin, kataKunci);
-
+        
             vector<Node *> songList = cariLagu(head, kataKunci);
             if (songList.empty())
             {
@@ -100,6 +103,7 @@ int main()
                 {
                     deleteSong(head, songList[opsiDelete - 1]);
                     save(head); // Simpan perubahan ke file
+                    
                     cout << "Lagu berhasil dihapus.\n";
                 }
                 else
@@ -230,6 +234,55 @@ int main()
         else if (choice == 8)
         {
             cout << "Keluar dari aplikasi. Terima kasih telah menggunakan Spotipi!\n";
+        }
+        else if (choice == 9){
+            string name;
+            printts(playlistHead);
+            cout << "Masukkan Judul Playlist: ";
+            cin.ignore();
+            getline(cin, name);
+            Playlist* selectedPly = findPlaylist(playlistHead, name);
+            if(selectedPly == nullptr){
+                cout << "Playlist tidak ditemukan\n";
+            }
+            else{
+                cout << "Masukkan judul lagu yang ingin dihapus: ";
+            string kataKunci;
+            getline(cin, kataKunci);
+            Node* selectedSong = selectedPly->songs;
+            vector<Node *> songList = cariLagu(selectedSong, kataKunci);
+            if (songList.empty())
+            {
+                cout << "Tidak ada lagu yang cocok dengan pencarian \"" << kataKunci << "\".\n";
+            }
+            else
+            {
+                cout << "Lagu yang ditemukan:\n";
+                for (size_t i = 0; i < songList.size(); ++i)
+                {
+                    cout << i + 1 << ". " << "Judul: " << songList[i]->title << " Oleh: " << songList[i]->artist << endl;
+                }
+                cout << songList.size() + 1 << ". Batal\n";
+
+                cout << "Pilih nomor lagu yang ingin dihapus: ";
+                int opsiDelete;
+                cin >> opsiDelete;
+
+                if (opsiDelete > 0 && opsiDelete <= songList.size())
+                {
+                    deleteSongFromPlaylist(selectedPly, songList[opsiDelete - 1]);
+                    plyToFile(playlistHead, name);
+                    cout << "Lagu berhasil dihapus.\n";
+                }
+                else
+                {
+                    cout << "Penghapusan dibatalkan.\n";
+                }
+            }
+            }
+
+            
+
         }
         else
         {

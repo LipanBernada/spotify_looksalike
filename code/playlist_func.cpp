@@ -116,7 +116,7 @@ void plyToFile(Playlist* playlist, const string& title) {
              << song->album << "," << song->duration << endl;
         song = song->next;
     }
-    free(temp);
+    delete temp;
     file.close();
 }
 
