@@ -20,7 +20,7 @@ int main()
     Node *head = nullptr;             // Pointer ke linked list lagu
     Playlist *playlistHead = nullptr; // Pointer ke linked list playlist
     string title, artist, album, duration;
-    int choice, sortChoice;
+    int choice;
 
     do
     {
@@ -110,6 +110,7 @@ int main()
         }
         else if (choice == 4)
         {
+            int sortChoice;
             cout << "Pilih metode pengurutan:\n";
             cout << "1. Berdasarkan Judul\n";
             cout << "2. Berdasarkan Artis\n";
@@ -136,38 +137,58 @@ int main()
             loadPly(playlistHead); // Muat playlist dari file
             load(head);
             string playlistTitle;
-            int songIndex;
+            string songIndex;
             load(head); // Muat lagu dari file
             cout << "Masukkan Judul Playlist: ";
-            getline(cin, playlistTitle);    
-            printList(head);
-            cout << "Masukkan Index lagu: ";
-            //Next bisa diubah jadi judul jangan index
+            getline(cin, playlistTitle);
+            cout << "Masukkan judul lagu: ";
             cin >> songIndex;
-
-
-
             Playlist *selectedPlaylist = findPlaylist(playlistHead, playlistTitle);
             if (selectedPlaylist == nullptr)
             {
                 cout << "Playlist Tidak Ditemukan\n";
             }
-                
-            Node *selectedSong = chooseSong(head, songIndex);
-            
-            //error
-            if (selectedSong == nullptr)
+            vector<Node *> songList = cariLagu(head, songIndex);
+            if (songList.empty())
             {
-                cout << "Indeks lagu tidak valid.\n";
+                cout << "Tidak ada lagu yang cocok dengan pencarian \"" << songIndex << "\".\n";
             }
+            else
+            {
+                cout << "Lagu yang ditemukan:\n";
+                for (size_t i = 0; i < songList.size(); ++i)
+                {
+                    cout << i + 1 << ". " << "Judul: " << songList[i]->title << " Oleh: " << songList[i]->artist << endl;
+                }
+                cout << songList.size() + 1 << ". Batal\n";
 
-            if (duplicateCheck(selectedSong, selectedPlaylist))
-            {
-                cout << "Lagu sudah ada dalam playlist.\n";
-            }
-            else{
-            addSongToPlaylist(playlistHead, playlistTitle, selectedSong);
-            plyToFile(playlistHead, playlistTitle);
+                cout << "Pilih nomor lagu yang ingin ditambah ke playlist: ";
+                int opsiAdd;
+                cin >> opsiAdd;
+
+                if (opsiAdd > 0 && opsiAdd <= songList.size())
+                {       
+                    Node *selectedSong = chooseSong(head, opsiAdd - 1);
+                    
+                    //error
+                    if (selectedSong == nullptr)
+                    {
+                        cout << "Indeks lagu tidak valid.\n";
+                    }
+
+                    if (duplicateCheck(selectedSong, selectedPlaylist))
+                    {
+                        cout << "Lagu sudah ada dalam playlist.\n";
+                    }
+                    else{
+                    addSongToPlaylist(playlistHead, playlistTitle, selectedSong);
+                    plyToFile(playlistHead, playlistTitle);
+                    }
+                }
+                else
+                {
+                    cout << "Penghapusan dibatalkan.\n";
+                }
             }
 
         }
