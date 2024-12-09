@@ -42,7 +42,7 @@ void loadPly(Playlist*& head);
     void appendPlaylist(Playlist*& playlistHead, const string& title);
 
 void addSongToPlaylist(Playlist* head, const string& playlistTitle, const Node* song);
-Node* chooseSong(Node* head, int index);
+Node* chooseSong(vector <Node*> head, int index);
 void printPlaylist(Playlist* head, const string& playlistTitle);
 Playlist* findPlaylist(Playlist* head, const string& title);
 bool duplicateCheck(const Node* selected, const Playlist* playlist);

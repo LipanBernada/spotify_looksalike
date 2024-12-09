@@ -55,7 +55,7 @@ bool dupliyCheck(string title, vector <Playlist> &ply) {
 }
 bool duplicateCheck(const Node* selected, const Playlist* playlist) {
     if (playlist == nullptr) return false;
-
+    
     Node* songTemp = playlist->songs;
     while (songTemp != nullptr) {
         if (selected->title == songTemp->title) {

@@ -71,7 +71,7 @@ int main()
                 cout << "Lagu Sudah Ada dalam Daftar ^_~\n";
             }
         }
-        /*else if (choice == 3)
+        else if (choice == 3)
         {
             cout << "Masukkan judul lagu yang ingin dihapus: ";
             cin.ignore();
@@ -129,7 +129,7 @@ int main()
             {
                 cout << "Pilihan tidak valid.\n";
             }
-        }*/
+        }
         else if (choice == 5)
         {
             
@@ -168,14 +168,14 @@ int main()
 
                 if (opsiAdd > 0 && opsiAdd <= songList.size())
                 {       
-                    Node *selectedSong = chooseSong(head, opsiAdd - 1);
+                    Node *selectedSong = chooseSong(songList, opsiAdd - 1);
                     
                     //error
                     if (selectedSong == nullptr)
                     {
                         cout << "Indeks lagu tidak valid.\n";
                     }
-
+                    cout << selectedSong->title << "ini \n";
                     if (duplicateCheck(selectedSong, selectedPlaylist))
                     {
                         cout << "Lagu sudah ada dalam playlist.\n";

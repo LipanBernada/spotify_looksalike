@@ -47,13 +47,12 @@ Playlist* findPlaylist(Playlist* head, const string& title) {
 }
 
 
-Node* chooseSong(Node* head, int index) {
-    int current = 1; // Penomoran dimulai dari 1
-    while (head != nullptr) {
+Node* chooseSong(vector <Node*> head, int index) {
+    int current = 0; // Penomoran dimulai dari 0
+    while (head[current]!= nullptr) {
         if (current == index) {
-            return head; // Mengembalikan pointer ke lagu yang dipilih
+            return head[current]; // Mengembalikan pointer ke lagu yang dipilih
         }
-        head = head->next; // Lanjut ke node berikutnya
         current++;
     }
     return nullptr; // Jika indeks tidak valid
