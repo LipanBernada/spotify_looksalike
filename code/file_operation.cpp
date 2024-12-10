@@ -64,8 +64,6 @@ while (getline(file, line)) {
     file.close();
 }
 void print_ply(Playlist* head) {
-                                cout << "Masuk";
-
     ofstream file("file/ply_list.txt", ios::trunc);
     if (!file) {
         cerr << "Error: Tidak dapat membuka file untuk ditulis.\n";
