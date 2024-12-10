@@ -1,5 +1,4 @@
 #include "list_func.hpp"
-
 using namespace std;
 
 string matchChoice(const string &input, const vector<string> &userChoice)
