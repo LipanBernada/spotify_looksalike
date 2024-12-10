@@ -64,7 +64,7 @@ void printPlaylist(Playlist* head, const string& playlistTitle) {
     Playlist* temp = head;
 
     // Cari playlist berdasarkan nama
-    while (temp->next != nullptr && temp->title != playlistTitle) {
+    while (temp != nullptr && temp->title != playlistTitle) {
         temp = temp->next;
     }
 
@@ -78,19 +78,28 @@ void printPlaylist(Playlist* head, const string& playlistTitle) {
         cout << "Playlist \"" << temp->title << "\" kosong!" << endl;
         return;
     }
+    system("cls");
+    // Header tabel
+    cout << "                                       "<< RED<<temp->title  << RESET<< endl;
+    cout << "----------------------------------------------------------------------------------" << endl;
+    cout << "| No | Judul                    | Artis               | Album           | Durasi |" << endl;
+    cout << "----------------------------------------------------------------------------------" << endl;
 
-    cout << "Playlist \"" << temp->title << "\":" << endl;
+    // Isi tabel
     int index = 1;
     while (song != nullptr) {
-        cout << index << ". Title: " << song->title
-             << ", Artist: " << song->artist
-             << ", Album: " << song->album
-             << ", Duration: " << song->duration << endl;
+        cout << "| " << setw(2) << index << " | "
+             << setw(25) << left << song->title << "| "
+             << setw(20) << left << song->artist << "| "
+             << setw(16) << left << song->album << "| "
+             << setw(6) << right << song->duration << " |" << endl;
         song = song->next;
         index++;
     }
-}
 
+    // Penutup tabel
+    cout << "----------------------------------------------------------------------------------" << endl;
+}
 
 void plyToFile(Playlist* playlist, const string& title) {
     if (!playlist) {
@@ -116,7 +125,6 @@ void plyToFile(Playlist* playlist, const string& title) {
              << song->album << "," << song->duration << endl;
         song = song->next;
     }
-    delete temp;
     file.close();
 }
 

@@ -6,6 +6,15 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
+
+// Warna ANSI
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define CYAN    "\033[36m"
 
 using std::string;
 using namespace std;
@@ -53,6 +62,9 @@ void deleteSong(Node*& head, Node* toDelete);
 void deleteSongFromPlaylist(Playlist* playlist, Node* songToDelete);
 vector<Node*> cariLagu(Node* head, const string& kataKunci);
 
+void displayPlaylistMenu();
+void displaySongMenu();
+void displayMainMenu();
 
 
 #endif
