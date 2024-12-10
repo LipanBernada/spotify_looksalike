@@ -44,6 +44,10 @@ int main()
 
     do
     {
+        load(head);
+        loadPly(playlistHead);
+        system("cls");
+
         displayMainMenu();
         cout << CYAN << "Masukkan Command: " << RESET;
         cin >> command;
@@ -66,6 +70,7 @@ int main()
                     if (head != nullptr)
                     {
                         printList(head);
+                        system("pause");
                     }
                     else
                     {
@@ -91,12 +96,14 @@ int main()
                         append(head, title, artist, album, duration);
                         save(head);
                         cout << GREEN << "Lagu berhasil ditambahkan!" << RESET << endl;
+
                     }
                     else
                     {
                         cout << RED << "Lagu sudah ada dalam daftar ^_~\n"
                              << RESET;
                     }
+                    system("pause");
                 }
                 else if (command == "/delete")
                 {
@@ -162,6 +169,7 @@ int main()
                         cout << RED << "Pilihan tidak valid.\n"
                              << RESET;
                     }
+                    system("pause");
                 }
                 else if (command == "/back")
                 {
@@ -183,6 +191,7 @@ int main()
                 displayPlaylistMenu();
                 cout << CYAN << "Masukkan Command: " << RESET;
                 cin >> command;
+                command = matchChoice(command, plyListChoice);
 
                 if (command == "/create")
                 {
@@ -201,6 +210,7 @@ int main()
                     {
                         cout << "Playlist sudah ada.\n";
                     }
+                    system("pause");
                 }
                 else if (command == "/add")
                 {
@@ -209,14 +219,17 @@ int main()
                     load(head);
                     string playlistTitle;
                     string songIndex;
+                    printTitle(playlistHead);
                     cout << "Masukkan Judul Playlist: ";
                     getline(cin, playlistTitle);
                     Playlist *selectedPlaylist = findPlaylist(playlistHead, playlistTitle);
                     if (selectedPlaylist == nullptr)
                     {
                         cout << "Playlist Tidak Ditemukan\n";
+                        system("pause");
                         continue;
                     }
+                    printList(head);
                     cout << "Masukkan judul lagu: ";
                     cin >> songIndex;
                     vector<Node *> songList = cariLagu(head, songIndex);
@@ -262,12 +275,14 @@ int main()
                             cout << "Penghapusan dibatalkan.\n";
                         }
                     }
+                    system("pause");
                 }
                 else if (command == "/show")
                 {
                     if (playlistHead != nullptr)
                     {
                         string x;
+                        printTitle(playlistHead);
                         cout << "Masukkan Judul Playlist yang kamu ingin buka: ";
                         cin.ignore();
                         getline(cin, x);
@@ -334,6 +349,10 @@ int main()
                     cout << "Pilih judul playlist yang ingin di sort: ";
                     getline(cin, plylistToSort);
                     Playlist *selectedPlaylist = findPlaylist(playlistHead, plylistToSort);
+                    if(selectedPlaylist == nullptr){
+                        cout << "Tidak ditemukan playlist\n";
+                        continue;
+                    }
                     int plySortchoice;
                     cout << "Pilih metode pengurutan:\n";
                     cout << "1. Berdasarkan Judul\n";
@@ -357,6 +376,13 @@ int main()
                 }
                 else if (command == "/drop")
                 {
+                    string name;
+                    printTitle(playlistHead);
+                    cout << "Masukkan Judul Playlist yang Ingin di Hapus: ";
+                    cin.ignore();
+                    getline(cin, name);
+                    dropPly(&playlistHead, name);
+                    rewrite(playlistHead);
                 }
                 else
                 {

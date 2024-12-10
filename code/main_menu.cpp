@@ -30,6 +30,7 @@ void displayPlaylistMenu() {
     cout << YELLOW << "  /add    " << RESET << "- Add song to a playlist" << endl;
     cout << YELLOW << "  /show   " << RESET << "- Show all playlists" << endl;
     cout << YELLOW << "  /delete " << RESET << "- Delete song from playlist" << endl;
+    cout << YELLOW << "  /drop   " << RESET << "- Delete Entire Playlist" << endl;
     cout << YELLOW << "  /sort   " << RESET << "- Sort songs in a playlist" << endl;
     cout << YELLOW << "  /back   " << RESET << "- Back to main menu" << endl;
     cout << CYAN << "=============================" << RESET << endl;

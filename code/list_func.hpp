@@ -7,6 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <cstdio>
 
 // Warna ANSI
 #define RESET   "\033[0m"
@@ -46,6 +47,7 @@ void load(Node*& head);
 void clear(Node*& head);
 void plyToFile(Playlist* playlist, const string& title);
 
+
 void loadPly(Playlist*& head);
     void clearAllPlaylists(Playlist*& head);
     void appendPlaylist(Playlist*& playlistHead, const string& title);
@@ -55,12 +57,16 @@ Node* chooseSong(vector <Node*> head, int index);
 void printPlaylist(Playlist* head, const string& playlistTitle);
 Playlist* findPlaylist(Playlist* head, const string& title);
 bool duplicateCheck(const Node* selected, const Playlist* playlist);
+void printTitle(Playlist* head);
 
 
 void sortList(Node*& head, int kriteria);
 void deleteSong(Node*& head, Node* toDelete);
 void deleteSongFromPlaylist(Playlist* playlist, Node* songToDelete);
+void deletePlaylistFromFile(const string& playlistTitle);
+void rewrite(Playlist* head);
 vector<Node*> cariLagu(Node* head, const string& kataKunci);
+void dropPly(Playlist** head, const string& playlistTitle);
 
 void displayPlaylistMenu();
 void displaySongMenu();

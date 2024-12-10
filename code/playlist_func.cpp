@@ -58,6 +58,27 @@ Node* chooseSong(vector <Node*> head, int index) {
     return nullptr; // Jika indeks tidak valid
 }
 
+void printTitle(Playlist* head){
+    int curr = 1;
+    if(head == nullptr){
+        return;
+    }
+    cout << "---------------------------------" << endl;
+    cout << "| No  | Judul                   |" << endl;
+    cout << "---------------------------------" << endl;
+
+    // Menampilkan data playlist
+    while (head != nullptr){
+        cout << "| " << setw(3) << curr << " | " 
+             << setw(23) << left << head->title << " |" << endl;
+        head = head->next;
+        curr++;
+    }
+    
+    cout << "---------------------------------" << endl;
+}
+
+
 
 
 void printPlaylist(Playlist* head, const string& playlistTitle) {
@@ -97,7 +118,6 @@ void printPlaylist(Playlist* head, const string& playlistTitle) {
         index++;
     }
 
-    // Penutup tabel
     cout << "----------------------------------------------------------------------------------" << endl;
 }
 
@@ -150,4 +170,39 @@ void appendPlaylist(Playlist*& playlistHead, const string& title) {
     cout << "Playlist \"" << title << "\" berhasil ditambahkan.\n";
 }
 
-    
+void dropPly(Playlist** head, const string& playlistTitle) {
+    Playlist* temp = *head;
+    Playlist* prev = nullptr;
+    string filen = "./file/PlayLists/" + playlistTitle + ".txt";
+    // Jika playlist yang ingin dihapus adalah head
+    if (temp != nullptr && temp->title == playlistTitle) {
+        *head = temp->next;
+        delete temp;
+        return;
+    }
+
+    // Cari playlist yang akan dihapus
+    while (temp != nullptr && temp->title != playlistTitle) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    // Jika playlist tidak ditemukan
+    if (temp == nullptr) return;
+
+    // Hapus playlist
+    prev->next = temp->next;
+    delete temp;
+    remove(filen.c_str());
+}
+
+
+
+void rewrite(Playlist* head){
+    Playlist* temp = head;
+    ofstream file("./file/ply_list.txt",ios::trunc);
+    while (temp != nullptr){
+        file << temp->title << endl;
+        temp = temp->next;
+    }
+}
