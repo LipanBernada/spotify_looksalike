@@ -50,7 +50,6 @@ void deleteSongFromPlaylist(Playlist* playlist, Node* songToDelete) {
 
     // Jika node lagu tidak ditemukan
     if (currentSong == nullptr) {
-        cout << "Lagu tidak ditemukan di playlist " << playlist->title << "." << endl;
         return;
     }
 
@@ -65,5 +64,7 @@ void deleteSongFromPlaylist(Playlist* playlist, Node* songToDelete) {
 
     // Bebaskan memori
     delete currentSong;
+
+
     cout << "Lagu berhasil dihapus dari playlist " << playlist->title << "." << endl;
 }

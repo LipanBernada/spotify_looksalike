@@ -9,25 +9,26 @@ int durasiLagu(const string& durasi) {
 }
 
 void sortList(Node*& head, int kriteria) {
-
     if (!head || !head->next) return;
+
     bool swapp;
 
     do {
         swapp = false;
-        Node* lagu = head;
+        Node* current = head;
         Node* prev = nullptr;
 
-        while (lagu && lagu->next) {
-            Node* next = lagu->next;
+        while (current && current->next) {
+            Node* next = current->next;
             bool kondisi = false;
-            if (kriteria == 1) kondisi = lagu->title > next->title;
-            else if (kriteria == 2) kondisi = lagu->artist > next->artist;
-            else if (kriteria == 3) kondisi = lagu->album > next->album;
+
+            if (kriteria == 1) kondisi = current->title > next->title;
+            else if (kriteria == 2) kondisi = current->artist > next->artist;
+            else if (kriteria == 3) kondisi = current->album > next->album;
             else if (kriteria == 4) {
-                int durasi123 = durasiLagu(lagu->duration);
+                int durasiCurrent = durasiLagu(current->duration);
                 int durasiNext = durasiLagu(next->duration);
-                kondisi = durasi123 > durasiNext;
+                kondisi = durasiCurrent > durasiNext;
             }
 
             if (kondisi) {
@@ -36,13 +37,19 @@ void sortList(Node*& head, int kriteria) {
                 } else {
                     prev->next = next;
                 }
-                lagu->next = next->next;
-                next->next = lagu;
-                swapp = true;
-            }
+                current->next = next->next;
+                next->next = current;
 
-            prev = swapp ? prev : lagu;
-            lagu = lagu->next;
+                swapp = true;
+                if (!prev) {
+                    prev = head;
+                } else {
+                    prev = next;
+                }
+            } else {
+                prev = current;
+                current = current->next;
+            }
         }
     } while (swapp);
 }

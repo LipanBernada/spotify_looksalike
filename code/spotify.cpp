@@ -100,9 +100,19 @@ int main()
                 cin >> opsiDelete;
 
                 if (opsiDelete > 0 && opsiDelete <= songList.size())
-                {
+                {   
                     deleteSong(head, songList[opsiDelete - 1]);
                     save(head); // Simpan perubahan ke file
+
+                    while(playlistHead != nullptr){
+                        Playlist* selectedPly = findPlaylist(playlistHead, playlistHead->title);
+                        deleteSongFromPlaylist(selectedPly, songList[opsiDelete-1]);
+                        plyToFile(playlistHead, selectedPly->title);
+
+                        playlistHead = playlistHead->next;
+                        
+                    }
+
                     
                     cout << "Lagu berhasil dihapus.\n";
                 }
@@ -125,9 +135,13 @@ int main()
 
             if (sortChoice >= 1 && sortChoice <= 4)
             {
+                load(head);
+                loadPly(playlistHead);
+                printt(head);
                 sortList(head, sortChoice);
                 cout << "List Lagu Telah diurutkan.\n";
                 printList(head);
+                save(head);
             }
             else
             {
@@ -142,16 +156,16 @@ int main()
             load(head);
             string playlistTitle;
             string songIndex;
-            load(head); // Muat lagu dari file
             cout << "Masukkan Judul Playlist: ";
             getline(cin, playlistTitle);
-            cout << "Masukkan judul lagu: ";
-            cin >> songIndex;
             Playlist *selectedPlaylist = findPlaylist(playlistHead, playlistTitle);
             if (selectedPlaylist == nullptr)
             {
                 cout << "Playlist Tidak Ditemukan\n";
+                continue;
             }
+            cout << "Masukkan judul lagu: ";
+            cin >> songIndex;
             vector<Node *> songList = cariLagu(head, songIndex);
             if (songList.empty())
             {
@@ -187,6 +201,7 @@ int main()
                     else{
                     addSongToPlaylist(playlistHead, playlistTitle, selectedSong);
                     plyToFile(playlistHead, playlistTitle);
+                    
                     }
                 }
                 else
@@ -283,6 +298,30 @@ int main()
 
             
 
+        }
+        else if(choice == 10){
+            string plylistToSort;
+            cin.ignore();
+            cout << "Pilih judul playlist yang ingin di sort: ";
+            getline(cin, plylistToSort);
+            Playlist *selectedPlaylist = findPlaylist(playlistHead, plylistToSort);
+            int plySortchoice;
+            cout << "Pilih metode pengurutan:\n";
+            cout << "1. Berdasarkan Judul\n";
+            cout << "2. Berdasarkan Artis\n";
+            cout << "3. Berdasarkan Album\n";
+            cout << "4. Berdasarkan Durasi\n";
+            cout << "Masukkan Pilihan (1/2/3/4): ";
+            cin >> plySortchoice;
+            if(plySortchoice >= 1 && plySortchoice <= 4){
+                Node* sortPly = selectedPlaylist->songs;
+                printt(sortPly);
+                cout << endl <<  "Tes";
+                sortList(sortPly, plySortchoice);
+                cout << "List Lagu dalam Playlist Telah diurutkan.\n";
+                printList(sortPly);
+                plyToFile(selectedPlaylist, selectedPlaylist->title);
+            }
         }
         else
         {
