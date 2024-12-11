@@ -1,0 +1,16 @@
+0,0,0,0
+1,1,1,1
+2,2,2,2
+3,3,3,3
+4,4,4,4
+5,5,5,5
+6,6,6,6
+7,7,7,7
+8,8,8,8
+9,9,9,9
+aron,aron,aron,12
+awrerer,ewewrrw,rggrgr,46
+cek,cek,cek,cek
+ddrgdrgdr,rsgrsgsg,9,9
+q,a,a,a
+tes,tes,tes,5

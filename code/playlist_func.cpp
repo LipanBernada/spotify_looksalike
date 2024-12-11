@@ -130,7 +130,7 @@ void plyToFile(Playlist* playlist, const string& title) {
     while(temp->title != title && temp->next != nullptr){
         temp = temp->next;
     }
-   
+   cout << "Masuk Gan";
     string filename = "./file/PlayLists/" + temp->title + ".txt";
     ofstream file(filename, ios::trunc);
     if (!file.is_open()) {

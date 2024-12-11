@@ -20,31 +20,11 @@ void append(Node*& head, string title, string artist, string album, string durat
     temp->next = newNode; 
 }
 void printList(Node* head) {
-     if (head == nullptr) {
-        cout << "Daftar lagu kosong!" << endl;
-        return;
-    }
-
-    // Header tabel
-    cout << "----------------------------------------------------------------------------------" << endl;
-    cout << "| No | Judul                    | Artis               | Album           | Durasi |" << endl;
-    cout << "----------------------------------------------------------------------------------" << endl;
-
-    // Isi tabel
-    int index = 1;
     Node* temp = head;
     while (temp != nullptr) {
-        cout << "| " << setw(2) << index << " | "
-             << setw(25) << left << temp->title << "| "
-             << setw(20) << left << temp->artist << "| "
-             << setw(16) << left << temp->album << "| "
-             << setw(6) << right << temp->duration << " |" << endl;
+        cout << "Title: " << temp->title << " Artist: " << temp->artist << " Album: " << temp->album << " Duration: " << temp->duration << endl;
         temp = temp->next;
-        index++;
     }
-
-    // Penutup tabel
-    cout << "----------------------------------------------------------------------------------" << endl;
 }
 
 void clear(Node*& head) { // Gunakan Node*& agar perubahan head berlaku global
